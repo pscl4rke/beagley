@@ -9,29 +9,52 @@ export class StatsGroup extends LitElement {
   
     constructor() {
         super();
-        //this.wallsAttempted = "4,642,635";
-        //this.successfulWalls = "56.32%";
-        //this.successfulFlypasts = "45.98%";
     }
 
-   createRenderRoot() {
+    createRenderRoot() {
        // don't use shadow DOM, so we can use bootstrap
        return this;
-   }
+    }
+
+    get showWallsAttempted() {
+        if (this.wallsAttempted === undefined) {
+            return "";
+        }
+        return this.wallsAttempted?.toLocaleString("en-GB");
+    }
+
+    get showSuccessfulWallsPercent() {
+        let percent = 100 * (this.successfulWalls / this.wallsAttempted)
+        if (isNaN(percent)) {
+            return "";
+        }
+        return percent.toFixed(2) + "%";
+    }
+
+    get showSuccessfulFlypastsPercent() {
+        let percent = 100 * (this.successfulFlypasts / this.successfulWalls)
+        if (isNaN(percent)) {
+            return "";
+        }
+        return percent.toFixed(2) + "%";
+    }
   
     render() {
         return html`
             <div class="input-group m-1">
                 <span class="input-group-text" style="width: 200px">Walls Attempted</span>
-                <input readonly class="form-control" type="text" style="text-align: right" value="${this.wallsAttempted}" />
+                <input readonly class="form-control" type="text"
+                    style="text-align: right" value="${this.showWallsAttempted}" />
             </div>
             <div class="input-group m-1">
                 <span class="input-group-text" style="width: 200px">Successful Walls</span>
-                <input readonly class="form-control" type="text" style="text-align: right" value="${this.successfulWalls}" />
+                <input readonly class="form-control" type="text"
+                    style="text-align: right" value="${this.showSuccessfulWallsPercent}" />
             </div>
             <div class="input-group m-1">
                 <span class="input-group-text" style="width: 200px">Successful Flypast</span>
-                <input readonly class="form-control" type="text" style="text-align: right" value="${this.successfulFlypasts}" />
+                <input readonly class="form-control" type="text"
+                    style="text-align: right" value="${this.showSuccessfulFlypastsPercent}" />
             </div>
         `;
     }
