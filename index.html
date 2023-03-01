@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="vendor/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css" />
         <script src="vendor/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.min.js"></script>
         <script type="module" src="js/my-experiment.js"></script>
+        <script type="module" src="js/stats-group.js"></script>
         <style>
             .wrapper {
                 display: flex;
@@ -29,18 +30,7 @@
             <div class="main-panel">
                 <div class="m-3">
                     <my-experiment></my-experiment>
-                    <div class="input-group m-1">
-                        <span class="input-group-text" style="width: 200px">Walls Attempted</span>
-                        <input readonly class="form-control" type="text" style="text-align: right" value="4,642,635" />
-                    </div>
-                    <div class="input-group m-1">
-                        <span class="input-group-text" style="width: 200px">Successful Walls</span>
-                        <input readonly class="form-control" type="text" style="text-align: right" value="56.32%" />
-                    </div>
-                    <div class="input-group m-1">
-                        <span class="input-group-text" style="width: 200px">Successful Flypast</span>
-                        <input readonly class="form-control" type="text" style="text-align: right" value="45.98%" />
-                    </div>
+                    <stats-group id="my-stats-group"></stats-group>
                 </div>
             </div>
         </div>
