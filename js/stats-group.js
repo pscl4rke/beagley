@@ -9,9 +9,9 @@ export class StatsGroup extends LitElement {
   
     constructor() {
         super();
-        this.wallsAttempted = "4,642,635";
-        this.successfulWalls = "56.32%";
-        this.successfulFlypasts = "45.98%";
+        //this.wallsAttempted = "4,642,635";
+        //this.successfulWalls = "56.32%";
+        //this.successfulFlypasts = "45.98%";
     }
 
    createRenderRoot() {
