@@ -1,11 +1,6 @@
 window.updateWithFilteredStats = function() {
     let url = "http://localhost:8001";
-    let params = new URLSearchParams();
-    params.set("xxx", "yyy");
-    let from = document.getElementById("from-date-selector");
-    params.set("from", from.value);
-    let to = document.getElementById("to-date-selector");
-    params.set("to", to.value);
+    let params = window.datasetFilters.toURLParams();
     window.updateWithStatsFrom(url + "?" + params);
 };
 
@@ -19,14 +14,15 @@ window.updateWithStatsFrom = async function (url) {
 };
 
 document.addEventListener("DOMContentLoaded", (event) => {
-    console.log("ready " + event);
+    window.datasetFilters = new DatasetFilters(window.updateWithFilteredStats);
     flatpickr("#from-date-selector", {
         dateFormat: "j M Y",
         onChange: (selectedDates, dateStr, instance) => {
             console.log("Selected: " + selectedDates);
             console.log("As String: " + dateStr);
             console.log("Instance: " + instance);
-            window.updateWithFilteredStats();
+            //window.updateWithFilteredStats();
+            window.datasetFilters.setFrom(selectedDates[0]);
         },
     });
     flatpickr("#to-date-selector", {
@@ -35,7 +31,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             console.log("Selected: " + selectedDates);
             console.log("As String: " + dateStr);
             console.log("Instance: " + instance);
-            window.updateWithFilteredStats();
+            //window.updateWithFilteredStats();
+            window.datasetFilters.setTo(selectedDates[0]);
         },
     });
 })
