@@ -1,7 +1,10 @@
 window.updateWithFilteredStats = function() {
-    let url = "http://localhost:8001";
+    let url = "http://localhost:8001/foobar/summary/";
     let params = window.datasetFilters.toURLParams();
     window.updateWithStatsFrom(url + "?" + params);
+    if (window.dataGrid !== undefined) {
+        window.dataGrid.forceRender();
+    }
 };
 
 window.updateWithStatsFrom = async function (url) {
@@ -13,16 +16,26 @@ window.updateWithStatsFrom = async function (url) {
     statsGroup.successfulFlypasts = statsToShow.successfulFlypasts;
 };
 
+async function getDataForTable() {
+    let url = "http://localhost:8001/foobar/walls/";
+    let params = window.datasetFilters.toURLParams();
+    const response = await fetch(url + "?" + params);
+    const rows = await response.json();
+    return rows
+}
+
 function putATableOnTheScreen() {
-    new gridjs.Grid({ 
-        columns: ['Name', 'Email'],
-        data: [
-          ['John', 'john@example.com'],
-          ['Mike', 'mike@gmail.com']
-        ],
+    window.dataGrid = new gridjs.Grid({ 
+        columns: ["Date", "Source", "Destination", "Result"],
+        data: () => { return getDataForTable() },
         width: "50%",
         className: {
-            table: "table",  // supplied by bootstrap
+            // all supplied by bootstrap
+            table: "table",
+            paginationButton: "btn btn-secondary",
+        },
+        pagination: {
+            limit: 10,
         },
     }).render(document.getElementById("table-goes-here"));
 }
