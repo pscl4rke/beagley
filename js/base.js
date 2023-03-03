@@ -13,6 +13,20 @@ window.updateWithStatsFrom = async function (url) {
     statsGroup.successfulFlypasts = statsToShow.successfulFlypasts;
 };
 
+function putATableOnTheScreen() {
+    new gridjs.Grid({ 
+        columns: ['Name', 'Email'],
+        data: [
+          ['John', 'john@example.com'],
+          ['Mike', 'mike@gmail.com']
+        ],
+        width: "50%",
+        className: {
+            table: "table",  // supplied by bootstrap
+        },
+    }).render(document.getElementById("table-goes-here"));
+}
+
 document.addEventListener("DOMContentLoaded", (event) => {
     window.datasetFilters = new DatasetFilters(window.updateWithFilteredStats);
     window.datasetFilters.triggerUpdate()
@@ -36,4 +50,5 @@ document.addEventListener("DOMContentLoaded", (event) => {
             window.datasetFilters.setTo(selectedDates[0]);
         },
     });
+    putATableOnTheScreen();
 })
