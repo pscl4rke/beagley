@@ -15,6 +15,7 @@ window.updateWithStatsFrom = async function (url) {
 
 document.addEventListener("DOMContentLoaded", (event) => {
     window.datasetFilters = new DatasetFilters(window.updateWithFilteredStats);
+    window.datasetFilters.triggerUpdate()
     flatpickr("#from-date-selector", {
         dateFormat: "j M Y",
         onChange: (selectedDates, dateStr, instance) => {

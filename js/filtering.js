@@ -1,3 +1,10 @@
+function dateToLocalISO(date) {
+    year = date.getFullYear();
+    month = date.getMonth() + 1;
+    day = date.getDate();
+    return year + "-" + String(month).padStart(2, "0") + "-" + String(day).padStart(2, "0");
+}
+
 class DatasetFilters {
 
     constructor(updateHandler) {
@@ -31,10 +38,10 @@ class DatasetFilters {
     toURLParams() {
         let params = new URLSearchParams();
         if (this.from !== null) {
-            params.set("from", this.from.toISOString().slice(0, 10));
+            params.set("from", dateToLocalISO(this.from));
         }
         if (this.to !== null) {
-            params.set("to", this.to.toISOString().slice(0, 10));
+            params.set("to", dateToLocalISO(this.to));
         }
         return params;
     }
