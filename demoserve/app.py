@@ -21,12 +21,11 @@ def wsgi_handler(env, start):
     if len(where) > 0:
         where = "WHERE " + where
     print(where)
-    # FIXME stupid _ymd name isn't needed any more
     with sqlite3.connect("foobar.db") as conn:
         cur = conn.cursor()
         cur.execute("""
             SELECT walls, successful, flypasts
-            FROM summary_ymd
+            FROM summary
         """ + where)
         walls, successes, flypasts = 0, 0, 0
         for row in cur.fetchall():
