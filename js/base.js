@@ -28,10 +28,10 @@ function putATableOnTheScreen() {
     window.dataGrid = new gridjs.Grid({ 
         columns: ["Date", "Source", "Destination", "Result"],
         data: () => { return getDataForTable() },
-        width: "50%",
+        //width: "50%",
         className: {
             // all supplied by bootstrap
-            table: "table",
+            table: "table table-sm",
             paginationButton: "btn btn-secondary",
         },
         pagination: {

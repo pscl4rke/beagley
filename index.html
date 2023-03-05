@@ -25,7 +25,7 @@
         </style>
     </head>
     <body style="height: 100%">
-        <div class="wrapper">
+        <div class="wrapper small"> <!-- smaller text in most of doc: fit more in -->
             <div class="sidebar bg-dark text-light">
                 <div class="sidebar-wrapper p-3">
                     <h3 class="p-0">Hello World</h3>
@@ -44,11 +44,15 @@
                     </div>
                 </div>
             </div>
-            <div class="main-panel">
+            <div class="main-panel w-100">
                 <div class="m-3">
                     <my-experiment></my-experiment>
                     <stats-group id="my-stats-group"></stats-group>
-                    <div id="table-goes-here"></div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="table-goes-here"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

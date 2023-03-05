@@ -41,17 +41,17 @@ export class StatsGroup extends LitElement {
   
     render() {
         return html`
-            <div class="input-group m-1">
+            <div class="input-group my-2">
                 <span class="input-group-text" style="width: 200px">Walls Attempted</span>
                 <input readonly class="form-control" type="text"
                     style="text-align: right" value="${this.showWallsAttempted}" />
             </div>
-            <div class="input-group m-1">
+            <div class="input-group my-2">
                 <span class="input-group-text" style="width: 200px">Successful Walls</span>
                 <input readonly class="form-control" type="text"
                     style="text-align: right" value="${this.showSuccessfulWallsPercent}" />
             </div>
-            <div class="input-group m-1">
+            <div class="input-group my-2">
                 <span class="input-group-text" style="width: 200px">Successful Flypast</span>
                 <input readonly class="form-control" type="text"
                     style="text-align: right" value="${this.showSuccessfulFlypastsPercent}" />
