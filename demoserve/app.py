@@ -51,7 +51,8 @@ def wsgi_handler(env, start):
             cur.execute("""
                 SELECT isoDate, source, destination, result
                 FROM wallData
-            """ + where)
+            """ + where + " ORDER BY isoDate DESC LIMIT " + params["limit"]  # FIXME inj
+                                    + " OFFSET " + params["offset"])  # FIXME injection
             rows = cur.fetchall()
         payload = rows
     else:

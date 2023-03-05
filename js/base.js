@@ -27,7 +27,7 @@ async function getDataForTable() {
 function putATableOnTheScreen() {
     window.dataGrid = new gridjs.Grid({ 
         columns: ["Date", "Source", "Destination", "Result"],
-        data: () => { return getDataForTable() },
+        //data: () => { return getDataForTable() },
         //width: "50%",
         className: {
             // all supplied by bootstrap
@@ -36,11 +36,25 @@ function putATableOnTheScreen() {
         },
         pagination: {
             limit: 10,
+            server: {
+                url: (_prevUrl, page, limit) => {
+                    let url = "http://localhost:8001/foobar/walls/";
+                    let params = window.datasetFilters.toURLParams();
+                    return `${url}?${params}&limit=${limit}&offset=${page * limit}`;
+                }
+            },
+        },
+        server: {
+            total: (_data) => {
+                let statsGroup = document.getElementById("my-stats-group");
+                return statsGroup.wallsAttempted;
+            },
+            then: (data) => data,
         },
     }).render(document.getElementById("table-goes-here"));
 }
 
-document.addEventListener("DOMContentLoaded", (event) => {
+document.addEventListener("DOMContentLoaded", (_event) => {
     window.datasetFilters = new DatasetFilters(window.updateWithFilteredStats);
     window.datasetFilters.triggerUpdate()
     flatpickr("#from-date-selector", {
