@@ -58,7 +58,9 @@ async function updateMeta() {
     let url = "http://localhost:8001/foobar/meta/"
     const response = await fetch(url);
     const meta = await response.json();
-    document.getElementById("my-experiment").version = meta.documentTitle;
+    document.getElementById("document-header").documentTitle = meta.documentTitle;
+    document.getElementById("document-header").earliest = meta.earliest;
+    document.getElementById("document-header").latest = meta.latest;
 }
 
 document.addEventListener("DOMContentLoaded", (_event) => {

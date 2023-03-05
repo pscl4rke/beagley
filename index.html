@@ -12,6 +12,7 @@
         <script src="js/base.js"></script>
         <script src="js/filtering.js"></script>
         <script type="module" src="js/my-experiment.js"></script>
+        <script type="module" src="js/document-header.js"></script>
         <script type="module" src="js/stats-group.js"></script>
         <style>
             .wrapper {
@@ -28,11 +29,7 @@
         <div class="wrapper small"> <!-- smaller text in most of doc: fit more in -->
             <div class="sidebar bg-dark text-light">
                 <div class="sidebar-wrapper p-3">
-                    <h3 class="p-0">Hello World</h3>
-                    <button onclick="window.updateWithStatsFrom('foo.json')">Foo</button>
-                    <button onclick="window.updateWithStatsFrom('bar.json')">Bar</button>
-                    <button onclick="window.updateWithFilteredStats()">Remote</button>
-                    <p>&nbsp;</p>
+                    <document-header id="document-header"></document-header>
                     <div class="input-group">
                         <span class="input-group-text" style="width: 4em">From:</span>
                         <input id="from-date-selector" class="form-control"></input>

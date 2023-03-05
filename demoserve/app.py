@@ -34,8 +34,17 @@ def wsgi_handler(env, start):
         where = "WHERE " + where
     print(where)
     if dataset == "meta":
+        with sqlite3.connect(document_name + ".db") as conn:
+            cur1 = conn.cursor()
+            cur1.execute("""SELECT MIN(isoDate) FROM wallData""")
+            earliest = cur1.fetchone()[0]
+            cur2 = conn.cursor()
+            cur2.execute("""SELECT MAX(isoDate) FROM wallData""")
+            latest = cur2.fetchone()[0]
         payload = {
-            "documentTitle": "Example Document",
+            "documentTitle": "Example Document",  # FIXME
+            "earliest": earliest,
+            "latest": latest,
         }
     elif dataset == "summary":
         with sqlite3.connect(document_name + ".db") as conn:
