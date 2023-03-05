@@ -29,6 +29,9 @@ def wsgi_handler(env, start):
         parts.append("isoDate >= %r" % params["from"])  # FIXME injection
     if "to" in params:
         parts.append("isoDate <= %r" % params["to"])  # FIXME injection
+    if "result" in params:  # This doesn't work! 'result' is in wallData but no summary
+        if params["result"] == "successful":
+            parts.append("result != ''")
     where = " AND ".join(parts)
     if len(where) > 0:
         where = "WHERE " + where

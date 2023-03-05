@@ -11,6 +11,7 @@ class DatasetFilters {
         this.updateHandler = updateHandler
         this.from = null;
         this.to = null;
+        this.result = "all";
     }
 
     triggerUpdate() {
@@ -35,6 +36,11 @@ class DatasetFilters {
         this.triggerUpdate();
     }
 
+    setResult(state) {
+        this.result = state;
+        this.triggerUpdate();
+    }
+
     toURLParams() {
         let params = new URLSearchParams();
         if (this.from !== null) {
@@ -43,6 +49,7 @@ class DatasetFilters {
         if (this.to !== null) {
             params.set("to", dateToLocalISO(this.to));
         }
+        params.set("result", this.result);
         return params;
     }
 
