@@ -35,6 +35,9 @@ def wsgi_handler(env, start):
     print(where)
     if dataset == "meta":
         with sqlite3.connect(document_name + ".db") as conn:
+            cur0 = conn.cursor()
+            cur0.execute("""SELECT key, value FROM meta""")
+            meta = dict(cur0.fetchall())
             cur1 = conn.cursor()
             cur1.execute("""SELECT MIN(isoDate) FROM wallData""")
             earliest = cur1.fetchone()[0]
@@ -42,7 +45,7 @@ def wsgi_handler(env, start):
             cur2.execute("""SELECT MAX(isoDate) FROM wallData""")
             latest = cur2.fetchone()[0]
         payload = {
-            "documentTitle": "Example Document",  # FIXME
+            "documentTitle": meta["documentTitle"],
             "earliest": earliest,
             "latest": latest,
         }
