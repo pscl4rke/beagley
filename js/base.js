@@ -54,7 +54,15 @@ function putATableOnTheScreen() {
     }).render(document.getElementById("table-goes-here"));
 }
 
+async function updateMeta() {
+    let url = "http://localhost:8001/foobar/meta/"
+    const response = await fetch(url);
+    const meta = await response.json();
+    document.getElementById("my-experiment").version = meta.documentTitle;
+}
+
 document.addEventListener("DOMContentLoaded", (_event) => {
+    updateMeta();
     window.datasetFilters = new DatasetFilters(window.updateWithFilteredStats);
     window.datasetFilters.triggerUpdate()
     flatpickr("#from-date-selector", {

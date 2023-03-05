@@ -33,7 +33,11 @@ def wsgi_handler(env, start):
     if len(where) > 0:
         where = "WHERE " + where
     print(where)
-    if dataset == "summary":
+    if dataset == "meta":
+        payload = {
+            "documentTitle": "Example Document",
+        }
+    elif dataset == "summary":
         with sqlite3.connect(document_name + ".db") as conn:
             cur = conn.cursor()
             cur.execute("""
