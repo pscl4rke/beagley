@@ -10,6 +10,12 @@ from wsgiref.simple_server import make_server
 from wsgiref.util import request_uri, shift_path_info
 
 
+def fix(value):
+    if value is None:
+        return 0
+    return value
+
+
 def wsgi_handler(env, start):
     document_name = shift_path_info(env)
     dataset = shift_path_info(env)
@@ -37,9 +43,9 @@ def wsgi_handler(env, start):
             walls, successes, flypasts = 0, 0, 0
             for row in cur.fetchall():
                 day_walls, day_successes, day_flypasts = row
-                walls += day_walls
-                successes += day_successes
-                flypasts += day_flypasts
+                walls += fix(day_walls)
+                successes += fix(day_successes)
+                flypasts += fix(day_flypasts)
         payload = {
             "wallsAttempted": walls,
             "successfulWalls": successes,
