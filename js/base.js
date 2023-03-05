@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", (_event) => {
             labels: ["Failed", "Successful"],
             datasets: [{
                 data: [0, 0],  // to be updated from stats
-                backgroundColor: ['#BBBBBB', 'blue'],
+                backgroundColor: ['#BBBBBB', '#231D53'],
             }],
         },
     })
