@@ -9,9 +9,9 @@
         <script src="vendor/flatpickr/flatpickr.js"></script>
         <link rel="stylesheet" href="vendor/xgridjs@6.0.6/theme/mermaid.min.css" />
         <script src="vendor/gridjs@6.0.6/gridjs.umd.js"></script>
+        <script src="vendor/chart.js@4.2.1/chart.umd.js"></script>
         <script src="js/base.js"></script>
         <script src="js/filtering.js"></script>
-        <script type="module" src="js/my-experiment.js"></script>
         <script type="module" src="js/document-header.js"></script>
         <script type="module" src="js/filter-result.js"></script>
         <script type="module" src="js/stats-group.js"></script>
@@ -46,7 +46,16 @@
             </div>
             <div class="main-panel w-100">
                 <div class="m-3">
-                    <stats-group id="my-stats-group"></stats-group>
+                    <div class="container"><div class="row">
+                        <div class="col">
+                            <stats-group id="my-stats-group"></stats-group>
+                        </div>
+                        <div class="col">
+                            <div style="height: 150px">
+                                <canvas id="demochart"></canvas>
+                            </div>
+                        </div>
+                        </div></div>
                     <div class="card">
                         <div class="card-body">
                             <div id="table-goes-here"></div>

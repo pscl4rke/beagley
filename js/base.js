@@ -16,6 +16,14 @@ window.updateWithStatsFrom = async function (url) {
     statsGroup.wallsAttempted = statsToShow.wallsAttempted;
     statsGroup.successfulWalls = statsToShow.successfulWalls;
     statsGroup.successfulFlypasts = statsToShow.successfulFlypasts;
+    if (window.demochart !== undefined) {
+        let failed = statsToShow.wallsAttempted - statsToShow.successfulWalls;
+        let successful = statsToShow.successfulWalls;
+        console.log(`Redraw pie: fail: ${failed}, succ: ${successful}`)
+        window.demochart.data.datasets[0].data[0] = failed;
+        window.demochart.data.datasets[0].data[1] = successful;
+        window.demochart.update()
+    }
 };
 
 async function getDataForTable() {
@@ -67,6 +75,17 @@ async function updateMeta() {
 
 document.addEventListener("DOMContentLoaded", (_event) => {
     updateMeta();
+    Chart.overrides["pie"].plugins.legend.position = "right";
+    window.demochart = new Chart (document.getElementById("demochart"), {
+        type: "pie",
+        data: {
+            labels: ["Failed", "Successful"],
+            datasets: [{
+                data: [0, 0],  // to be updated from stats
+                backgroundColor: ['#BBBBBB', 'blue'],
+            }],
+        },
+    })
     window.datasetFilters = new DatasetFilters(window.updateWithFilteredStats);
     window.datasetFilters.triggerUpdate()
     flatpickr("#from-date-selector", {
