@@ -80,6 +80,18 @@ def wsgi_handler(env, start):
                                     + " OFFSET " + params["offset"])  # FIXME injection
             rows = cur.fetchall()
         payload = rows
+    elif dataset == "wallscsv":
+        with sqlite3.connect(document_name + ".db") as conn:
+            cur = conn.cursor()
+            cur.execute("""
+                SELECT isoDate, source, destination, result
+                FROM wallData
+            """ + where + " ORDER BY isoDate DESC")
+            rows = cur.fetchall()
+        lines = []
+        for row in rows:
+            lines.append(",".join(str(cell) for cell in row))
+        payload = "\n".join(lines) + "\n"
     else:
         raise Exception("unknown " + dataset)
     response = "200 OK"
@@ -88,7 +100,9 @@ def wsgi_handler(env, start):
         ("Access-Control-Allow-Origin", "*"),
     ]
     start(response, headers)
-    return [json.dumps(payload).encode()]
+    if isinstance(payload, dict) or isinstance(payload, list):
+        payload = json.dumps(payload)
+    return [payload.encode()]
 
 
 def build_app():

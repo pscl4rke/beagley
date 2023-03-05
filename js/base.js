@@ -5,6 +5,8 @@ window.updateWithFilteredStats = function() {
     if (window.dataGrid !== undefined) {
         window.dataGrid.forceRender();
     }
+    let csvUrl = "http://localhost:8001/foobar/wallscsv/";
+    document.getElementById("csv-link").href = csvUrl + "?" + params;
 };
 
 window.updateWithStatsFrom = async function (url) {
